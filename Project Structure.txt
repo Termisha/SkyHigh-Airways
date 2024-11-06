@@ -1,0 +1,19 @@
+Project Structure
+
+SkyHigh Airways Reservation System
+
+├── .git
+├── .venv			
+├── myproject
+|	├── __init__.py					# Initializes the Flask app
+|	├── config.py 					# Configuration settings
+|	├── models.py					# Database models
+|	├── routes.py 					# API endpoints
+|	├── schemas.py 					# Backend validation 
+|
+├── app.py							# Entry point to run application
+├── Project Structure.txt
+├── README.md
+├── requirements.txt				# Any project dependencies
+
+├── migrations/              # Database migration files
