@@ -52,7 +52,7 @@ def book_flight():
 
     # 5. Finally, save booking information
     booking = Booking(
-        passenger_id = user.passenger_id,
+        passenger_id= user.passenger_id,
         passenger_email=user.email, 
         passenger_first_name=user.first_name,
         passenger_last_name=user.last_name, 

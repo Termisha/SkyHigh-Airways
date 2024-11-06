@@ -36,7 +36,7 @@ class Passenger(db.Model):
     gender = db.Column(db.String(10), nullable=False)
     email = db.Column(db.String(100),  unique=True, nullable=False)
     phone_number = db.Column(db.String(15), nullable=False)
-    bookings=db.relationship('Booking', backref='user', lazy=True)
+    bookings=db.relationship('Booking', backref='passenger', lazy=True)
 
     def __init__(self, first_name, last_name, dob, gender, email, phone):
         self.first_name = first_name
@@ -58,6 +58,16 @@ class Booking(db.Model):
     passenger_first_name = db.Column(db.String(20), nullable=False)
     passenger_last_name = db.Column(db.String(20), nullable=False)
     passenger_email = db.Column(db.String(100))
+
+    def __init__(self, passenger_id, flight_id, booking_date, booking_reference, passenger_first_name, passenger_last_name, passenger_email, seat_number):
+        self.passenger_id = passenger_id
+        self.flight_id = flight_id
+        self.booking_date = booking_date
+        self.booking_reference = booking_reference
+        self.passenger_first_name = passenger_first_name
+        self.passenger_last_name = passenger_last_name
+        self.passenger_email = passenger_email
+        self.seat_number = seat_number
 
 class Seats(db.Model):
     __tablename__ = 'seats'
