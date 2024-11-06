@@ -12,8 +12,14 @@ api = Blueprint('api', __name__)
 def search_flights():
     origin = request.args.get('origin')
     destination = request.args.get('destination')
-    departure_date = datetime.datetime.fromisoformat(request.args.get('date'))
+    # departure_date = datetime.datetime.fromisoformat(request.args.get('travelDate'))
+    # num_passengers = request.args.get('numPassengers')
+
+    # Query the database for available flights
     flights = Flight.query.filter_by(origin=origin, destination=destination, departure_time=departure_date).all()
+    
+     
+    # Return the list of flights
     return jsonify([flights.as_dict() for flight in flights])
 
 @api.route('/create_bookings', methods=['POST'])

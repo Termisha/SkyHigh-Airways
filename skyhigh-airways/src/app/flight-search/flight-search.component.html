@@ -1,1 +1,57 @@
-<p>flight-search works!</p>
+<div class="flight-search-container">
+    <!-- <div class="flight-search-form">
+        <input type="text" placeholder="Departure City" [(ngModel)]="departureCity" required>
+        <input type="text" placeholder="Arrival City" [(ngModel)]="arrivalCity" required>
+        <input type="date" [(ngModel)]="travelDate" required>
+        <input type="number" placeholder="Number of Passengers" [(ngModel)]="numPassengers" required>
+        <button (click)="searchFlights()">Search Flights</button>
+     </div> -->
+
+     <form [formGroup]="searchForm" (ngSubmit)="searchFlights()">
+      <div>
+        <label for="origin">Origin:</label>
+        <input id="origin" formControlName="origin" type="text" />
+      </div>
+      <div *ngIf="searchForm.get('origin')?.hasError('required') && searchForm.get('origin')?.touched">
+         Origin is required.
+      </div>
+            
+    
+      <div>
+        <label for="destination">Destination:</label>
+        <input id="destination" formControlName="destination" type="text" />
+      </div>
+      <div *ngIf="searchForm.get('destination')?.hasError('required') && searchForm.get('destination')?.touched">
+         Destination is required.
+      </div>
+    
+      <div>
+        <label for="travelDate">Travel Date:</label>
+        <input id="travelDate" formControlName="travelDate" type="date" />
+      </div>
+      <div *ngIf="searchForm.get('travelDate')?.hasError('required') && searchForm.get('travelDate')?.touched">
+         Travel Date is required.
+      </div>
+    
+      <div>
+        <label for="numPassengers">Number of Passengers:</label>
+        <input id="numPassengers" formControlName="numPassengers" type="number" />
+      </div>
+      <div *ngIf="searchForm.get('numPassengers')?.hasError('required') && searchForm.get('numPassengers')?.touched">
+         Number of Passengers is required.
+      </div>
+    
+      <button type="submit" [disabled]="searchForm.invalid">Search Flights</button>
+    </form>
+    
+     <div *ngIf="flights.length" class="flight-list">
+        <div *ngFor="let flight of flights" class="flight-item">
+           <span>Flight:   {{ flight.flightNumber }} - {{ flight.origin }} - {{ flight.destination}}</span>
+           <span>Time:     {{ flight.departureTime }} to {{ flight.arrivalTime }}</span>
+           <span>Duration: {{ flight.duration }} </span>
+           <span>Price:    {{ flight.price | currency }}</span>
+           <button (click)="selectFlight(flight)">Book</button>
+        </div>
+     </div>
+</div>
+ 

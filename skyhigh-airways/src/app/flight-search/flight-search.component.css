@@ -1,0 +1,40 @@
+
+.flight-search-container {
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.flight-search-form {
+    display: grid;
+    gap: 16px;
+}
+
+.flight-search-form input,
+.flight-search-form select {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.flight-list {
+    margin-top: 20px;
+}
+
+.flight-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px;
+    margin-bottom: 10px;
+    background-color: #f9f9fb;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.flight-item button {
+    padding: 10px 15px;
+}

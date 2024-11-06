@@ -2,6 +2,7 @@
 from flask import Flask, jsonify, request
 from myproject import db
 import datetime
+from datetime import timedelta
 
 class Flight(db.Model):
     __tablename__ = 'flights'
@@ -22,6 +23,13 @@ class Flight(db.Model):
         self.arrival_time = arrival_time
         self.available_seats = available_seats
         self.price = price
+
+    @property
+    def duration(self):
+        # Calculate the duration between departure and arrival times
+        if self.departure_time and self.arrival_time:
+            return self.arrival_time - self.departure_time
+        return timedelta(0)
     
     def __repr__(self):
         return f"Flight {self.flight_number} is set to leave from {self.origin} to {self.destination}."
