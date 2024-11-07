@@ -46,13 +46,13 @@ class Passenger(db.Model):
     phone_number = db.Column(db.String(15), nullable=False)
     bookings=db.relationship('Booking', backref='passenger', lazy=True)
 
-    def __init__(self, first_name, last_name, dob, gender, email, phone):
+    def __init__(self, first_name, last_name, date_of_birth, gender, email, phone_number):
         self.first_name = first_name
         self.last_name = last_name
-        self.date_of_birth = dob
+        self.date_of_birth = date_of_birth
         self.gender = gender
         self.email = email
-        self.phone_number = phone
+        self.phone_number = phone_number
 
 
 class Booking(db.Model):

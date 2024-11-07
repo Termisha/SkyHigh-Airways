@@ -33,23 +33,27 @@ export class FlightSearchComponent implements OnInit {
   ngOnInit(): void {}
 
   searchFlights(): void {
+    console.log('Inside searchFlights():');
     // Check if the form is valid before submitting
     if (this.searchForm.invalid) {
+      console.log("Form is invalid");
       return;
     }
 
     // Start loading
+    console.log("Searching flights...");
     this.isLoading = true;
     this.errorMessage = '';
 
     // Extract form values
-    //const { origin, destination, travelDate, passengers } = this.searchForm.value;
-    const { origin, destination } = this.searchForm.value;
+    const { origin, destination, travelDate, numPassengers } = this.searchForm.value;
+    console.log({ origin, destination, travelDate, numPassengers });
 
     // Call the service to fetch available flights
-    //this.flightService.searchFlights(origin, destination, travelDate, numPassengers).subscribe(
-    this.flightService.searchFlights(origin, destination).subscribe(
+    this.flightService.searchFlights(origin, destination, travelDate, numPassengers).subscribe(
+    //this.flightService.searchFlights(origin, destination).subscribe(
       (data) => {
+        console.log("Flight data received:", data);
         this.flights = data;
         this.isLoading = false;
       },

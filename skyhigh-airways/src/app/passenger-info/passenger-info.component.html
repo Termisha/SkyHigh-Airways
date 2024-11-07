@@ -1,1 +1,72 @@
-<p>passenger-info works!</p>
+<div class="welcome-message">
+    <h1>Passenger Information</h1>
+    <br />
+</div>
+
+<div class="passenger-info-container">
+    <p>Please enter relevant information below.</p>
+    <div class="passenger-info-form">
+        <form [formGroup]="passengerForm" (ngSubmit)="onSubmit()">
+            <div class="passenger-item">
+                <label>First Name</label>
+                <input type="text" formControlName="firstName" />
+                <!-- <div *ngIf="f.firstName.invalid && f.firstName.touched">
+                    <small *ngIf="f.firstName.errors?.required">First Name is required</small>
+                    <small *ngIf="f.firstName.errors?.pattern">Only alphabetic characters are allowed</small>
+                </div> -->
+            </div>
+
+            <div class="passenger-item">
+                <label>Last Name</label>
+                <input type="text" formControlName="lastName" />
+                <!-- <div *ngIf="f.lastName.invalid && f.lastName.touched">
+                    <small *ngIf="f.lastName.errors?.required">Last Name is required</small>
+                    <small *ngIf="f.lastName.errors?.pattern">Only alphabetic characters are allowed</small>
+                </div> -->
+            </div>
+            
+        
+            <div class="passenger-item">
+                <label>Date of Birth</label>
+                <input type="date" formControlName="dateOfBirth" />
+                <!-- <div *ngIf="f.dateOfBirth.invalid && f.dateOfBirth.touched">
+                    <small>Date of Birth is required</small>
+                </div> -->
+            </div>
+        
+            <div class="passenger-item">
+                <label>Gender</label>
+                <select formControlName="gender">
+                    <option value="">Select</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+                <!-- <div *ngIf="f.gender.invalid && f.gender.touched">
+                    <small>Gender is required</small>
+                </div> -->
+            </div>
+        
+            <div class="passenger-item">
+                <label>Email</label>
+                <input type="email" formControlName="email" />
+                <!-- <div *ngIf="f.email.invalid && f.email.touched">
+                    <small *ngIf="f.email.errors?.required">Email is required</small>
+                    <small *ngIf="f.email.errors?.email">Invalid email format</small>
+                </div> -->
+            </div>
+        
+            <div class="passenger-item">
+                <label>Phone Number</label>
+                <input type="text" formControlName="phoneNumber" />
+                <!-- <div *ngIf="f.phoneNumber.invalid && f.phoneNumber.touched">
+                    <small *ngIf="f.phoneNumber.errors?.required">Phone Number is required</small>
+                    <small *ngIf="f.phoneNumber.errors?.['pattern']">Invalid phone number format</small>
+                </div> -->
+            </div>
+        
+            <button type="submit" [disabled]="!passengerForm.valid">Submit</button>
+        </form>
+</div>
+</div>
+  

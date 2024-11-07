@@ -1,0 +1,52 @@
+/* passenger-info.css */
+.passenger-info-container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.passenger-info-form {
+    display: grid;
+    gap: 16px;
+}
+
+.passenger-info-form label {
+    font-weight: bold;
+}
+
+.passenger-info-form input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.9em;
+    margin-top: -10px;
+}
+
+.welcome-message{
+    text-align: center;
+}
+
+.passenger-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px;
+    margin-bottom: 10px;
+    background-color: #f9f9fb;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.padding-needed{
+    padding-left: 40%;
+}
+
+.default-value{
+    color: rgb(171, 171, 171);
+}

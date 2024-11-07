@@ -12,11 +12,11 @@ api = Blueprint('api', __name__)
 def search_flights():
     origin = request.args.get('origin')
     destination = request.args.get('destination')
-    # departure_date = datetime.datetime.fromisoformat(request.args.get('travelDate'))
-    # num_passengers = request.args.get('numPassengers')
+    departure_date = datetime.datetime.fromisoformat(request.args.get('travelDate'))
+    num_passengers = request.args.get('numPassengers')
 
     # Query the database for available flights
-    flights = Flight.query.filter_by(origin=origin, destination=destination, departure_time=departure_date).all()
+    flights = Flight.query.filter_by(origin=origin, destination=destination, departure_time=departure_date, num_passengers=num_passengers).all()
     
      
     # Return the list of flights
@@ -109,17 +109,20 @@ def view_bookings(user_id):
 @api.route('/passengers', methods=['POST'])
 def add_passenger():
     data = request.get_json()
+     # Log the received data
+    print(f"Received data: {data}")
 
     # 1. Validate user data
     try:
         new_passenger_data = user_schema.load({
-            "first_name" : data["first_name"],
-            "last_name" : data["last_name"],
-            "date_of_birth" : data["date_of_birth"],
+            "first_name" : data["firstName"],
+            "last_name" : data["lastName"],
+            "date_of_birth" : data["dateOfBirth"],
             "gender": data["gender"],
             "email": data["email"],
-            "phone_number": data["phone_number"]
+            "phone_number": data["phoneNumber"]
         })
+        print(f"New passenger data: {new_passenger_data}")
     except ValidationError as err:
         return jsonify({"status": "error", "errors": err.messages}), 400
     
@@ -130,3 +133,4 @@ def add_passenger():
         passenger = Passenger(**new_passenger_data)
         db.session.add(passenger)
         db.session.commit()
+        return jsonify({"status": "success", "message": "Passenger added successfully"}), 201
