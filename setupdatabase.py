@@ -46,4 +46,8 @@ with app.app_context():
     # print(B5.seat_id, B5.seat_number)
 
 
-
+    # BWA1500 = Flight('BWA1513', 'POS', 'JFK', datetime(2024,11,12,11,37), datetime(2024,11,12,12,00), 20, 1200)
+    # db.session.add(BWA1500)
+    # db.session.commit()
+    # print(BWA1500.flight_id)
+    # print(Flight.query.all())

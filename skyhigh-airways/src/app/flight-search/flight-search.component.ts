@@ -24,8 +24,8 @@ export class FlightSearchComponent implements OnInit {
     this.searchForm = this.fb.group({
       origin: ['', Validators.required],        // Origin city
       destination: ['', Validators.required],   // Destination city
-      travelDate: ['', Validators.required],    // Travel date
-      numPassengers: ['', [Validators.required, Validators.min(1)]] // Number of passengers
+      //travelDate: ['', Validators.required],    // Travel date
+      // numPassengers: ['', [Validators.required, Validators.min(1)]] // Number of passengers
     });
     
   }
@@ -46,11 +46,11 @@ export class FlightSearchComponent implements OnInit {
     this.errorMessage = '';
 
     // Extract form values
-    const { origin, destination, travelDate, numPassengers } = this.searchForm.value;
-    console.log({ origin, destination, travelDate, numPassengers });
+    const { origin, destination } = this.searchForm.value;
+    console.log({ origin, destination });
 
     // Call the service to fetch available flights
-    this.flightService.searchFlights(origin, destination, travelDate, numPassengers).subscribe(
+    this.flightService.searchFlights(origin, destination).subscribe(
     //this.flightService.searchFlights(origin, destination).subscribe(
       (data) => {
         console.log("Flight data received:", data);

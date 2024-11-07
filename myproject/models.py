@@ -1,8 +1,8 @@
 # myproject/models.py
 from flask import Flask, jsonify, request
 from myproject import db
-import datetime
-from datetime import timedelta
+from datetime import datetime
+from sqlalchemy.orm import relationship
 
 class Flight(db.Model):
     __tablename__ = 'flights'
@@ -10,30 +10,43 @@ class Flight(db.Model):
     flight_number = db.Column(db.String(20))
     origin = db.Column(db.String(50))
     destination = db.Column(db.String(50))
-    departure_time = db.Column(db.DateTime)
-    arrival_time = db.Column(db.DateTime)
+    flight_date = db.Column(db.Date)
+    departure_time = db.Column(db.Time)
+    arrival_time = db.Column(db.Time)
     available_seats = db.Column(db.Integer)
+    duration=db.Column(db.Integer)
     price = db.Column(db.Float)
 
-    def __init__(self, flight_number, origin, destination, departure_time, arrival_time, available_seats, price):
+    def __init__(self, flight_number, origin, destination, flight_date, departure_time, arrival_time, available_seats, duration, price):
         self.flight_number = flight_number
         self.origin = origin
         self.destination = destination
+        self.flight_date = flight_date
         self.departure_time = departure_time
         self.arrival_time = arrival_time
         self.available_seats = available_seats
+        self.duration = duration
         self.price = price
-
-    @property
-    def duration(self):
-        # Calculate the duration between departure and arrival times
-        if self.departure_time and self.arrival_time:
-            return self.arrival_time - self.departure_time
-        return timedelta(0)
     
-    def __repr__(self):
-        return f"Flight {self.flight_number} is set to leave from {self.origin} to {self.destination}."
+    # def __repr__(self):
+    #     return f"Flight {self.flight_number} is set to leave from {self.origin} to {self.destination} on {self.flight_date}.\n"
 
+    def to_dict(self):
+        # Combine time with flight date for consistency
+        departure_datetime = datetime.combine(self.flight_date, self.departure_time)
+        arrival_datetime = datetime.combine(self.flight_date, self.arrival_time)
+
+        return {
+            'flight_number': self.flight_number,
+            'origin': self.origin,
+            'destination': self.destination,
+            'flight_date': self.flight_date.strftime('%Y-%m-%d'),  # Ensure flight_date is a date object
+            'departure_time': departure_datetime.strftime('%H:%M:%S'),  # Formatted time
+            'arrival_time': arrival_datetime.strftime('%H:%M:%S'),  # Formatted time
+            'duration': str(self.duration),  # Convert duration to string
+            'available_seats': self.available_seats,
+            'price': self.price
+        }
 
 class Passenger(db.Model):
     __tablename__ = 'passengers'
@@ -61,7 +74,7 @@ class Booking(db.Model):
     passenger_id = db.Column(db.Integer, db.ForeignKey('passengers.passenger_id'))
     flight_id = db.Column(db.Integer, db.ForeignKey('flights.flight_id'))
     seat_number = db.Column(db.String(10))
-    booking_date = db.Column(db.DateTime, default = datetime.datetime.now)
+    booking_date = db.Column(db.DateTime, default = datetime.now)
     booking_reference = db.Column(db.String(100), unique=True)
     passenger_first_name = db.Column(db.String(20), nullable=False)
     passenger_last_name = db.Column(db.String(20), nullable=False)

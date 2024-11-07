@@ -4,23 +4,42 @@ from myproject import app, db
 from .models import Flight, Booking, Passenger
 from .schemas import user_schema
 from wtforms import ValidationError
-import datetime, uuid 
+from datetime import datetime
+import uuid 
 
 api = Blueprint('api', __name__)
 
 @api.route('/search_flights', methods=['GET'])
 def search_flights():
-    origin = request.args.get('origin')
-    destination = request.args.get('destination')
-    departure_date = datetime.datetime.fromisoformat(request.args.get('travelDate'))
-    num_passengers = request.args.get('numPassengers')
+    # origin = request.args.get('origin')
+    # destination = request.args.get('destination')
+    # travel_date = request.args.get('travelDate')
 
-    # Query the database for available flights
-    flights = Flight.query.filter_by(origin=origin, destination=destination, departure_time=departure_date, num_passengers=num_passengers).all()
+    origin = request.json.get('origin')
+    destination = request.json.get('destination')
+    travel_date = request.json.get('travelDate')
+
+    if not origin or not destination or not travel_date:
+        return jsonify({'error': 'Missing required parameters'}), 400
     
-     
-    # Return the list of flights
-    return jsonify([flights.as_dict() for flight in flights])
+
+    try:
+        # Convert travel_date string to a date object
+        travel_date = datetime.strptime(travel_date, '%Y-%m-%d').date()
+
+        # Query flights by origin, destination, and date
+        flights = Flight.query.filter_by(origin=origin, destination=destination).all()
+
+        # Filter by the flight_date to match the exact date
+        flights = [flight for flight in flights if flight.flight_date == travel_date]
+
+        # Return the flights as a list of dictionaries
+        return jsonify([flight.to_dict() for flight in flights])
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
 
 @api.route('/create_bookings', methods=['POST'])
 def book_flight():

@@ -4,14 +4,6 @@
 </div>
 
 <div class="flight-search-container">
-    <!-- <div class="flight-search-form">
-        <input type="text" placeholder="Departure City" [(ngModel)]="departureCity" required>
-        <input type="text" placeholder="Arrival City" [(ngModel)]="arrivalCity" required>
-        <input type="date" [(ngModel)]="travelDate" required>
-        <input type="number" placeholder="Number of Passengers" [(ngModel)]="numPassengers" required>
-        <button (click)="searchFlights()">Search Flights</button>
-     </div> -->
-
    <div class="flight-search-form">
       <form [formGroup]="searchForm" (ngSubmit)="searchFlights()">
          <div class="flight-item">
@@ -34,21 +26,21 @@
          
          
     
-         <div class="flight-item">
+         <!-- <div class="flight-item">
             <label for="travelDate">Travel Date:</label>
             <input id="travelDate" formControlName="travelDate" type="date" />
          </div>
          <div *ngIf="searchForm.get('travelDate')?.hasError('required') && searchForm.get('travelDate')?.touched">
             Travel Date is required.
-         </div>
+         </div> -->
     
-         <div class="flight-item">
-         <label for="numPassengers">Number of Passengers:</label>
-         <input id="numPassengers" formControlName="numPassengers" type="number" />
+         <!-- <div class="flight-item">
+            <label for="numPassengers">Number of Passengers:</label>
+            <input id="numPassengers" formControlName="numPassengers" type="number" />
          </div>
          <div *ngIf="searchForm.get('numPassengers')?.hasError('required') && searchForm.get('numPassengers')?.touched">
             Number of Passengers is required.
-         </div>
+         </div> -->
     
          <div class="flight-item">
             <button type="submit" [disabled]="searchForm.invalid">Search Flights</button>
