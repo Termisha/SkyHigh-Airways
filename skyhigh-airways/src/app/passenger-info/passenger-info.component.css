@@ -50,3 +50,14 @@
 .default-value{
     color: rgb(171, 171, 171);
 }
+
+.error-snackbar {
+    background-color: #f44336; /* Red background for error */
+    color: white;
+  }
+  
+/* Styles for success snackbar */
+.success-snackbar {
+    background-color: #4caf50; /* Green background for success */
+    color: white;
+}
